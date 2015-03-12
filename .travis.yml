@@ -1,4 +1,4 @@
 language: ruby
 script:
-	- rake lint
-	- rake test
+  - rake lint
+  - rake test
