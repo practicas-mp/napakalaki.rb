@@ -1,4 +1,5 @@
 # Napakalaki
+[![Build Status](https://travis-ci.org/practicas-mp/napakalaki.rb.svg)](https://travis-ci.org/practicas-mp/napakalaki.rb)
 
 TODO: Write a gem description
 
