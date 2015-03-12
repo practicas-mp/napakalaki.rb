@@ -1,5 +1,6 @@
-require "napakalaki/version"
+
+require 'napakalaki/version'
+# Napakalaki: main module
 
 module Napakalaki
-  # Your code goes here...
 end
