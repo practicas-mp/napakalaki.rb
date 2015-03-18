@@ -6,5 +6,9 @@ class Monster
     @prize = prize
   end
 
-  attr_reader :name, :combat_level
+  def to_s
+    "#{@name} [lvl #{@combat_level}]"
+  end
+
+  attr_reader :name, :combat_level, :bad_consequence, :prize
 end

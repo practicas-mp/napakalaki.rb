@@ -5,5 +5,9 @@ class Prize
     @levels = levels
   end
 
+  def to_s
+    "Treasures: #{@treasures}\nLevels: #{@levels}"
+  end
+
   attr_reader :treasures, :levels
 end
