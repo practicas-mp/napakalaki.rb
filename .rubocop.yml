@@ -12,3 +12,6 @@ Metrics/MethodLength:
 Metrics/ParameterLists:
   Max: 10
   CountKeywordArgs: true
+
+Style/ClassVars: # Exponer variable en swad_monsters
+  Enabled: false
