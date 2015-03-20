@@ -20,14 +20,16 @@ class TestMonster < Test::Unit::TestCase
     @monster = Monster.new(
       @name,
       @combat_level,
-      @bad_consequence,
-      @prize
+      @prize,
+      @bad_consequence
     )
   end
 
   def test_constructor
     assert_equal(@monster.name, @name, 'Name accesor is correct')
     assert(@monster.combat_level > 9000, "It's over 9000!!!")
+    assert_equal(@monster.bad_consequence.text, "Morirás pronto")
+    assert_equal(@monster.prize.levels, 3)
   end
 
   def test_to_s
@@ -40,6 +42,6 @@ class TestMonster < Test::Unit::TestCase
   end
 
   def sample_prize
-    Prize.new([TreasureKind::ARMOR], [1, 2, 3])
+    Prize.new([TreasureKind::ARMOR], 3)
   end
 end
