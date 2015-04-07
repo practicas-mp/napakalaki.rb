@@ -33,6 +33,15 @@ class BadConsequence
     "#{@text}"
   end
 
+  def just_level_loss
+    @levels != 0 &&
+      @death == false &&
+      @n_visible_treasures == 0 &&
+      @n_hidden_treasures == 0 &&
+      @specific_visible_treasures == [] &&
+      @specific_hidden_treasures == []
+  end
+
   attr_reader :text, :levels, :n_visible_treasures, :n_hidden_treasures,
               :specific_visible_treasures, :specific_hidden_treasures, :death
 
