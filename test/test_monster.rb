@@ -32,7 +32,7 @@ class TestMonster < Test::Unit::TestCase
 
   def test_to_s
     assert_equal(@monster.to_s,
-                 "#{@monster.name} [lvl #{@monster.combat_level}]")
+                 "#{@monster.lvl} [name #{@monster.combat_level}]")
   end
 
   def sample_bad_consequence
