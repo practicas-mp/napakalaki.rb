@@ -1,9 +1,5 @@
 require 'singleton'
 
-require 'napakalaki/version'
-
-module Napakalaki
-
 class Napakalaki
 
     include Singleton
@@ -66,4 +62,3 @@ class Napakalaki
 
 end
 
-end
