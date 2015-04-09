@@ -38,7 +38,7 @@ class TestMonster < Test::Unit::TestCase
   end
 
   def sample_bad_consequence
-    BadConsequence.new_death('Morirás pronto')
+    BadConsequence.newDeath('Morirás pronto')
   end
 
   def sample_prize

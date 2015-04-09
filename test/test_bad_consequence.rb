@@ -15,21 +15,21 @@ class TestBadConsequence < Test::Unit::TestCase
   end
 
   def setup_bad_consequence
-    @bad_consequence = BadConsequence.new_specific_treasures(
+    @bad_consequence = BadConsequence.newSpecificTreasures(
       @text,
       @levels,
       @visible_treasures,
       @hidden_treasures
     )
 
-    @n_bad_consequence = BadConsequence.new_number_of_treasures(
+    @n_bad_consequence = BadConsequence.newNumberOfTreasures(
       @text,
       @levels,
       @n_visible_treasures,
       @n_hidden_treasures
     )
 
-    @death_bad_consequence = BadConsequence.new_death(@text)
+    @death_bad_consequence = BadConsequence.newDeath(@text)
   end
 
   def test_accessors

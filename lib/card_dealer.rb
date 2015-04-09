@@ -4,6 +4,39 @@ class CardDealer
 
     include Singleton
 
+    private def shuffleTreasures()
+        @unusedTreasures.shuffle
+    end
+
+    private def shuffleMonsters()
+        @unusedMonsters.shuffle
+    end
+
+    def CardDealer.getInstance()
+        return CardDealer.instance
+    end
+    
+    def nextTreasure()
+    end
+
+    def nextMonster()
+    end
+
+    def giveTreasureBack(treasure)
+        @unusedTreasures << treasure
+    end
+
+    def giveMonsterBack(monster)
+        @unusedMonsters << monster
+    end
+
+    def initCards()
+        @usedMonsters = []
+        @unusedMonsters = []
+        @usedTreasures = []
+        @unusedTreasures = []
+    end 
+
     private def initTreasureDeck()
       @unusedTreasures << Treasure.new("¡Sí mi amo!", 0, 4, 7, TreasureKind::HELMET)
       @unusedTreasures << Treasure.new("Botas de investigación", 600, 3, 4, TreasureKind::SHOE)
@@ -153,38 +186,4 @@ class CardDealer
       @unusedMonsters << Monster.new("Bicéfalo", 20, prize, badConsequence)
 
     end
-
-    private def shuffleTreasures()
-        @unusedTreasures.shuffle
-    end
-
-    private def shuffleMonsters()
-        @unusedMonsters.shuffle
-    end
-
-    def CardDealer.getInstance()
-        return CardDealer.instance
-    end
-    
-    def nextTreasure()
-    end
-
-    def nextMonster()
-    end
-
-    def giveTreasureBack(treasure)
-        @unusedTreasures << treasure
-    end
-
-    def giveMonsterBack(monster)
-        @unusedMonsters << monster
-    end
-
-    def initCards()
-        @usedMonsters = []
-        @unusedMonsters = []
-        @usedTreasures = []
-        @unusedTreasures = []
-    end 
-
 end  
