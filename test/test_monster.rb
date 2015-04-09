@@ -27,14 +27,14 @@ class TestMonster < Test::Unit::TestCase
 
   def test_constructor
     assert_equal(@monster.name, @name, 'Name accesor is correct')
-    assert(@monster.combat_level > 9000, "It's over 9000!!!")
-    assert_equal(@monster.bad_consequence.text, "Morirás pronto")
+    assert(@monster.combatLevel > 9000, "It's over 9000!!!")
+    assert_equal(@monster.badConsequence.text, "Morirás pronto")
     assert_equal(@monster.prize.levels, 3)
   end
 
   def test_to_s
     assert_equal(@monster.to_s,
-                 "#{@monster.name} [lvl #{@monster.combat_level}]")
+                 "#{@monster.name} [lvl #{@monster.combatLevel}]")
   end
 
   def sample_bad_consequence

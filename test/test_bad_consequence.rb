@@ -35,28 +35,28 @@ class TestBadConsequence < Test::Unit::TestCase
   def test_accessors
     assert_equal(@bad_consequence.text, @text)
     assert_equal(@bad_consequence.levels, @levels)
-    assert_equal(@bad_consequence.specific_visible_treasures,
+    assert_equal(@bad_consequence.specificVisibleTreasures,
                  @visible_treasures)
-    assert_equal(@bad_consequence.specific_hidden_treasures, @hidden_treasures)
-    assert_equal(@n_bad_consequence.n_visible_treasures, @n_visible_treasures)
-    assert_equal(@n_bad_consequence.n_hidden_treasures, @n_hidden_treasures)
+    assert_equal(@bad_consequence.specificHiddenTreasures, @hidden_treasures)
+    assert_equal(@n_bad_consequence.nVisibleTreasures, @n_visible_treasures)
+    assert_equal(@n_bad_consequence.nHiddenTreasures, @n_hidden_treasures)
   end
 
   def test_specific_constructor
     assert_equal(
-      @bad_consequence.specific_visible_treasures,
+      @bad_consequence.specificVisibleTreasures,
       @visible_treasures
     )
 
     assert_equal(
-      @bad_consequence.specific_hidden_treasures,
+      @bad_consequence.specificHiddenTreasures,
       @hidden_treasures
     )
   end
 
   def test_number_constructor
-    assert_equal(@n_bad_consequence.n_visible_treasures, @n_visible_treasures)
-    assert_equal(@n_bad_consequence.n_hidden_treasures, @n_hidden_treasures)
+    assert_equal(@n_bad_consequence.nVisibleTreasures, @n_visible_treasures)
+    assert_equal(@n_bad_consequence.nHiddenTreasures, @n_hidden_treasures)
   end
 
   def test_death_constructor

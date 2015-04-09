@@ -6,10 +6,10 @@ class BadConsequence
       specific_hidden_treasures, death)
     @text = text
     @levels = levels
-    @n_visible_treasures = n_visible_treasures
-    @n_hidden_treasures = n_hidden_treasures
-    @specific_visible_treasures = specific_visible_treasures
-    @specific_hidden_treasures = specific_hidden_treasures
+    @nVisibleTreasures = n_visible_treasures
+    @nHiddenTreasures = n_hidden_treasures
+    @specificVisibleTreasures = specific_visible_treasures
+    @specificHiddenTreasures = specific_hidden_treasures
     @death = death
   end
 
@@ -35,11 +35,11 @@ class BadConsequence
 
   def isEmpty?()
     return @levels == 0 &&
-            @n_visible_treasures == 0 &&
-            @n_hidden_treasures == 0 &&
+            @nVisibleTreasures == 0 &&
+            @nHiddenTreasures == 0 &&
             @death == false &&
-            @specific_visible_treasures.emtpy? &&
-            @specific_hidden_treasures.emtpy?
+            @specificVisibleTreasures.emtpy? &&
+            @specificHiddenTreasures.emtpy?
   end
 
   def kills?()
@@ -55,8 +55,8 @@ class BadConsequence
   def adjustToFitTreasureLists(visibleTreasures, hiddenTreasures)
   end
 
-  attr_reader :text, :levels, :n_visible_treasures, :n_hidden_treasures,
-              :specific_visible_treasures, :specific_hidden_treasures, :death
+  attr_reader :text, :levels, :nVisibleTreasures, :nHiddenTreasures,
+              :specificVisibleTreasures, :specificHiddenTreasures, :death
 
   private_class_method :new
 end
