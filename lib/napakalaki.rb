@@ -1,14 +1,28 @@
 require 'singleton'
+require_relative './player'
+require_relative './combat_result'
 
 class Napakalaki
 
     include Singleton
 
+    def initGame(players)
+        initPlayers(players)
+        @currentPlayerIndex = rand(@players.length)
+        @currentPlayer = getCurrentPlayer()
+        @currentMonster = 0  # should be monsters[0]
+    end
+
     private def initPlayers(names)
-        @players = []
+        @players = names.map { |name| 
+            Player.new(name) 
+        }
     end
 
     private def nextPlayer()
+        @currentPlayerIndex = (@currentPlayerIndex + 1) % @players.length
+
+        getCurrentPlayer()
     end
 
     def Napakalaki.getInstance()
@@ -30,16 +44,12 @@ class Napakalaki
     def buyLevels(visibleTreasures, hiddenTreasures)
     end
 
-    def initGame(players)
-        self.initPlayers(players)
-        @currentMonster = 0  # should be monsters[0]
-        @currentPlayer = @players[0]
-    end
-
     def getCurrentPlayer()
+        @currentPlayer = @players[@currentPlayerIndex]
     end
 
     def getCurrentMonster()
+        @currentMonster
     end
 
     def canMakeTreasureVisible(treasure)
@@ -55,9 +65,11 @@ class Napakalaki
     end
 
     def nextTurnAllowed()
+        @currentPlayer.validState()
     end
 
     def endOfGame(result)
+        result == CombatResult::WINDANDWINGAME
     end
 
 end

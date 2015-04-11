@@ -47,10 +47,17 @@ class BadConsequence
   end
 
   def substractVisibleTreasure(treasure)
+    if @specificVisibleTreasures.empty?
+      @nVisibleTreasures -= 1
+    else
+      @specificVisibleTreasures.delete(treasure)
+    end
   end
 
   def substractHiddenTreasure(treasure)
+    @specificHiddenTreasures << treasure
   end
+
 
   def adjustToFitTreasureLists(visibleTreasures, hiddenTreasures)
   end

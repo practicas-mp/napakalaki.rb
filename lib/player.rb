@@ -1,3 +1,6 @@
+require_relative 'card_dealer'
+require_relative 'treasure_kind'
+
 class Player
 
     @@MAXHIDDENTREASURES = 4
@@ -35,6 +38,11 @@ class Player
     end
 
     private def discardNecklaceIfVisible()
+        for treasure in @visibleTreasures
+            if treasure.type == TreasureKind::NECKLACE
+                discardVisibleTreasure(treasure)
+            end
+        end
     end
 
     private def dieIfNoTreasures()
@@ -47,8 +55,14 @@ class Player
         return @level + levels < 10
     end
 
-    # protected def computeGoldCoinsValue(treasure)
-    # end
+    protected def computeGoldCoinsValue(treasures)
+        coins_sum = 0.0
+        treasures.each { |treasure|
+            coins_sum += treasure.goldCoins
+        }
+
+        return coins_sum / 1000
+    end
 
     def applyPrize(prize)
     end
@@ -63,18 +77,41 @@ class Player
     end
 
     def canMakeTreasureVisible(treasure)
+        if treasure.type == TreasureKind::ONEHAND
+            both_hands_treasures_visible = @visible.select { |visible_treasure| 
+                visible_treasure.type == TreasureKind::BOTHHANDS
+            }
+
+            if not both_hands_treasures_visible.empty?
+                return false
+            end
+        end 
+
+        similar_treasures_already_visible = @visibleTreasures.select { | visible_treasure |
+            visible_treasure.type == treasure.type
+        }
+
+        if treasure.type == TreasureKind::ONEHAND
+            return similar_treasures_already_visible.length < 2
+        else 
+            return similar_treasures.already_visible.empty? 
+        end
     end
 
     def discardVisibleTreasure(treasure)
+        @visibleTreasures.delete(treasure)
+        CardDealer.getInstance().giveTreasureBack(treasure)
     end
 
     def discardHiddenTreasure(treasure)
+        @hiddenTreasures.delete(treasure)
+        CardDealer.getInstance().giveTreasureBack(treasure)
     end
 
     def buyLevels(visibleTreasures, hiddenTreasures)
     end
 
-    def hasNecklaceEquipped?()
+    def hasNecklaceEquipped()
         for t in @visibleTreasures
             if t.type == TreasureKind::NECKLACE
                 return true
@@ -92,10 +129,10 @@ class Player
             high += t.maxBonus
         end
 
-        return self.hasNecklaceEquipped?() ? high : low
+        return self.hasNecklaceEquipped ? high : low
     end
 
-    def validState?()
+    def validState()
         return @pendingBadConsequence.isEmpty? && @hiddenTreasures < 5
     end
 
@@ -104,25 +141,13 @@ class Player
         @hiddenTreasures = []
     end
 
-    def isDead?()
+    def isDead()
         return @dead
     end
 
-    def hasVisibleTreasures?()
+    def hasVisibleTreasures()
         return (not @visibleTreasures.empty?)
     end
-
-    # EXAMEN
-
-    def setVisibleTreasureList(treasures)
-        @visibleTreasures = treasures
-    end
-
-    def setHiddenTreasureList(treasures)
-        @hiddenTreasures = treasures
-    end
-
-    # FIN EXAMEN
 
     def getVisibleTreasures()
     end

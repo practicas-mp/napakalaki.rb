@@ -17,9 +17,25 @@ class CardDealer
     end
     
     def nextTreasure()
+      if @unusedTreasures.empty?
+        @unusedTreasures = @usedTreasures
+        @usedTreasures = []
+
+        shuffleTreasures()
+      end
+
+      @unusedTreasures.pop()
     end
 
     def nextMonster()
+      if @unusedMonsters.empty?
+        @unusedMonsters = @usedMonsters
+        @usedMonsters = []
+
+        shuffleMonsters()
+      end
+
+      @unusedMonsters.pop()
     end
 
     def giveTreasureBack(treasure)
