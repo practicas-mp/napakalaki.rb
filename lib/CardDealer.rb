@@ -1,9 +1,9 @@
 # encoding: utf-8
 require 'singleton'
-require_relative 'treasure'
-require_relative 'prize'
-require_relative 'bad_consequence'
-require_relative 'monster'
+require_relative 'Treasure'
+require_relative 'Prize'
+require_relative 'BadConsequence'
+require_relative 'Monster'
 
 class CardDealer
 

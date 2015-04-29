@@ -1,7 +1,7 @@
 require 'singleton'
-require_relative './player'
-require_relative './combat_result'
-require_relative './card_dealer'
+require_relative 'Player'
+require_relative 'CombatResult'
+require_relative 'CardDealer'
 
 class Napakalaki
 

@@ -1,5 +1,4 @@
 class Treasure
-
     def initialize(name, goldCoins, minBonus, maxBonus, type)
         @name = name
         @goldCoins = goldCoins

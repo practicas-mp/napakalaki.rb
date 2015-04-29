@@ -1,5 +1,3 @@
-
-
 class BadConsequence
   def initialize(text, levels, n_visible_treasures,
       n_hidden_treasures, specific_visible_treasures,

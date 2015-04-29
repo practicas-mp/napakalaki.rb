@@ -1,7 +1,7 @@
-require_relative 'card_dealer'
-require_relative 'treasure_kind'
-require_relative 'combat_result'
-require_relative 'dice'
+require_relative 'CardDealer'
+require_relative 'TreasureKind'
+require_relative 'CombatResult'
+require_relative 'Dice'
 
 class Player
 
