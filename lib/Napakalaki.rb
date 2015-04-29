@@ -1,25 +1,31 @@
 require 'singleton'
 require_relative './player'
 require_relative './combat_result'
+require_relative './card_dealer'
 
 class Napakalaki
 
     include Singleton
 
     def initGame(players)
+        CardDealer.getInstance().initCards()
         initPlayers(players)
+
         @currentPlayerIndex = rand(@players.length)
         @currentPlayer = getCurrentPlayer()
-        @currentMonster = 0  # should be monsters[0]
+        
+        nextTurn()
     end
 
-    private def initPlayers(names)
+    private 
+    def initPlayers(names)
         @players = names.map { |name| 
             Player.new(name) 
         }
     end
 
-    private def nextPlayer()
+    public 
+    def nextPlayer()
         @currentPlayerIndex = (@currentPlayerIndex + 1) % @players.length
 
         getCurrentPlayer()
@@ -30,18 +36,30 @@ class Napakalaki
     end
 
     def combat()
+        combat_result = @currentPlayer.combat(@currentMonster)
+
+        CardDealer.getInstance().giveMonsterBack(@currentMonster)
+        return combat_result
     end
 
-    def discardVisibleTreasure(treasure)
+    def discardVisibleTreasure(treasures)
+        treasures.each { |treasure|
+            @currentPlayer.discardVisibleTreasure(treasure)
+        }
     end
 
-    def discardHiddenTreasure(treasure)
+    def discardHiddenTreasure(treasures)
+        treasures.each { |treasure|
+            @currentPlayer.discardVisibleTreasure(treasure)
+        }
     end
 
     def makeTreasureVisible(treasure)
+        @currentPlayer.makeTreasureVisible(treasure)
     end
 
     def buyLevels(visibleTreasures, hiddenTreasures)
+        @currentPlayer.buyLevels(visibleTreasures, hiddenTreasures)
     end
 
     def getCurrentPlayer()
@@ -62,10 +80,21 @@ class Napakalaki
     end
 
     def nextTurn()
+        next_turn_was_allowed = nextTurnAllowed
+        if next_turn_was_allowed
+            nextPlayer()    
+            @currentMonster = CardDealer.getInstance().nextMonster
+
+            if @currentPlayer.isDead
+                @currentPlayer.initTreasures()
+            end 
+        end
+
+        return next_turn_was_allowed
     end
 
     def nextTurnAllowed()
-        @currentPlayer.validState()
+        @currentPlayer.validState
     end
 
     def endOfGame(result)

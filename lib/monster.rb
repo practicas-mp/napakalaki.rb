@@ -14,5 +14,17 @@ class Monster
     @badConsequence.just_level_loss
   end
 
-  attr_reader :name, :combatLevel, :badConsequence, :prize
+  def getLevel
+    @combatLevel
+  end
+
+  def getBadConsequence
+    @badConsequence
+  end
+
+  def getPrize
+    @prize
+  end
+
+  
 end

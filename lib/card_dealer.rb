@@ -1,16 +1,25 @@
+# encoding: utf-8
 require 'singleton'
+require_relative 'treasure'
+require_relative 'prize'
+require_relative 'bad_consequence'
+require_relative 'monster'
 
 class CardDealer
 
     include Singleton
 
-    private def shuffleTreasures()
-        @unusedTreasures.shuffle
+    private
+
+    def shuffleTreasures()
+        @unusedTreasures = @unusedTreasures.shuffle
     end
 
-    private def shuffleMonsters()
-        @unusedMonsters.shuffle
+    def shuffleMonsters()
+        @unusedMonsters = @unusedMonsters.shuffle
     end
+
+    public
 
     def CardDealer.getInstance()
         return CardDealer.instance
@@ -39,11 +48,11 @@ class CardDealer
     end
 
     def giveTreasureBack(treasure)
-        @unusedTreasures << treasure
+        @usedTreasures << treasure
     end
 
     def giveMonsterBack(monster)
-        @unusedMonsters << monster
+        @usedMonsters << monster
     end
 
     def initCards()
@@ -51,9 +60,16 @@ class CardDealer
         @unusedMonsters = []
         @usedTreasures = []
         @unusedTreasures = []
+
+        initTreasureDeck()
+        initMonsterDeck()
+
+        shuffleTreasures()
+        shuffleMonsters()
     end 
 
-    private def initTreasureDeck()
+    private
+    def initTreasureDeck()
       @unusedTreasures << Treasure.new("¡Sí mi amo!", 0, 4, 7, TreasureKind::HELMET)
       @unusedTreasures << Treasure.new("Botas de investigación", 600, 3, 4, TreasureKind::SHOE)
       @unusedTreasures << Treasure.new("Capucha de Cthulhu", 500, 3, 5, TreasureKind::HELMET)   
@@ -88,7 +104,7 @@ class CardDealer
       @unusedTreasures << Treasure.new("Varita de atizamiento", 400, 3, 4, TreasureKind::ONEHAND)
     end
 
-    private def initMonsterDeck()
+    def initMonsterDeck()
       prize = Prize.new(2,1)
       badConsequence = BadConsequence.newSpecificTreasures("Pierdes tu armadura visible y otra oculta",
                        0, [TreasureKind::ARMOR], [TreasureKind::ARMOR])

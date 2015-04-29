@@ -5,3 +5,9 @@ module CombatResult
   LOSEANDESCAPE = :LOSEANDESCAPE
   LOSEANDDIE = :LOSEANDDIE
 end
+
+module Model
+
+end
+
+Model::CombatResult = CombatResult

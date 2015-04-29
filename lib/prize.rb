@@ -9,5 +9,13 @@ class Prize
     "Treasures: #{@treasures}\nLevels: #{@levels}"
   end
 
+  def getLevels
+  	@levels
+  end
+
+  def getTreasures
+    @treasures
+  end
+
   attr_reader :treasures, :levels
 end

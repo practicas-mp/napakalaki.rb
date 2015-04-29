@@ -30,37 +30,78 @@ class BadConsequence
   end
 
   def to_s
-    "#{@text}"
+    "#{@text} [ nVisible: #{@nVisibleTreasures} nHidden: #{@nHiddenTreasures} " +
+    "vTreasures: #{@specificVisibleTreasures} hTreasures: #{specificHiddenTreasures} ]"
   end
 
-  def isEmpty?()
-    return @levels == 0 &&
-            @nVisibleTreasures == 0 &&
+  def isEmpty()
+    return @nVisibleTreasures == 0 &&
             @nHiddenTreasures == 0 &&
-            @death == false &&
-            @specificVisibleTreasures.emtpy? &&
-            @specificHiddenTreasures.emtpy?
+            @specificVisibleTreasures.empty? &&
+            @specificHiddenTreasures.empty?
   end
 
-  def kills?()
+  def kills()
     return @death
   end
 
   def substractVisibleTreasure(treasure)
+    puts "T: #{treasure}, VT: #{@specificVisibleTreasures}"
     if @specificVisibleTreasures.empty?
-      @nVisibleTreasures -= 1
+      @nVisibleTreasures = [@nVisibleTreasures - 1, 0].max
     else
-      @specificVisibleTreasures.delete(treasure)
+      @specificVisibleTreasures.delete(@specificVisibleTreasures.find_index(treasure.type))
+      puts "sVTreasures: #{@specificVisibleTreasures}"
     end
   end
 
   def substractHiddenTreasure(treasure)
-    @specificHiddenTreasures << treasure
+    if @specificHiddenTreasures.empty?
+      @nHiddenTreasures = [@nHiddenTreasures - 1, 0].max
+    else
+      @specificHiddenTreasures.delete_at(@specificHiddenTreasures.find_index(treasure.type))
+    end
   end
+
 
 
   def adjustToFitTreasureLists(visibleTreasures, hiddenTreasures)
+    if numberKind? # Comprobar si la BadConsequence es de quitar tesoros no especificos
+      @nVisibleTreasures = [ @nVisibleTreasures, visibleTreasures.length].min
+      @nHiddenTreasures = [ @nHiddenTreasures, hiddenTreasures.length].min
+    elsif specificKind?
+      # Quedarse solo con los tesoros de los que pueda descartarse el jugador
+      @specificVisibleTreasures = @specificVisibleTreasures.select { |treasure_kind|
+        visibleTreasures.any? { |treasure|
+          treasure.type == treasure_kind
+        }
+      }
+
+      @specificHiddenTreasures = @specificHiddenTreasures.select { |treasure_kind| 
+        hiddenTreasures.any? { |treasure|
+          treasure.type == treasure_kind
+        }
+      }
+
+      puts @specificVisibleTreasures
+      puts @specificHiddenTreasures
+    end
   end
+
+  def getLevels()
+    @levels
+  end
+
+  private
+
+  def numberKind?
+    @nVisibleTreasures != 0 || @nHiddenTreasures != 0
+  end
+
+  def specificKind?
+    !@specificVisibleTreasures.empty? || !@specificHiddenTreasures.empty?
+  end
+
 
   attr_reader :text, :levels, :nVisibleTreasures, :nHiddenTreasures,
               :specificVisibleTreasures, :specificHiddenTreasures, :death
