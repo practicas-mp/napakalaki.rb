@@ -69,17 +69,38 @@ class BadConsequence
       @nHiddenTreasures = [ @nHiddenTreasures, hiddenTreasures.length].min
     elsif specificKind?
       # Quedarse solo con los tesoros de los que pueda descartarse el jugador
-      @specificVisibleTreasures = @specificVisibleTreasures.select { |treasure_kind|
-        visibleTreasures.any? { |treasure|
-          treasure.type == treasure_kind
-        }
-      }
+      visibleTreasuresCopy = Array.new(visibleTreasures)
+      treasuresToKeepInBC = []
+      for treasureKind in @specificVisibleTreasures
+        treasureToRemove = nil
+        for treasure in visibleTreasures
+          if treasure.type == treasureKind
+            treasureToRemove = treasure
+          end
+        end
+        if treasureToRemove != nil
+          visibleTreasuresCopy.delete(treasureToRemove)
+          treasuresToKeepInBC << treasureToRemove.type
+        end
+      end
+      @specificVisibleTreasures = treasuresToKeepInBC
 
-      @specificHiddenTreasures = @specificHiddenTreasures.select { |treasure_kind| 
-        hiddenTreasures.any? { |treasure|
-          treasure.type == treasure_kind
-        }
-      }
+      hiddenTreasuresCopy = Array.new(hiddenTreasures)
+      treasuresToKeepInBC = []
+      for treasureKind in @specificHiddenTreasures
+        treasureToRemove = nil
+        for treasure in hiddenTreasures
+          if treasure.type == treasureKind
+            treasureToRemove = treasure
+          end
+        end
+        if treasureToRemove != nil
+          hiddenTreasuresCopy.delete(treasureToRemove)  # There is just going to be one
+          treasuresToKeepInBC << treasureToRemove.type
+        end
+      end
+      @specificHiddenTreasures = treasuresToKeepInBC
+
 
       puts @specificVisibleTreasures
       puts @specificHiddenTreasures
