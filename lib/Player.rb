@@ -169,6 +169,16 @@ class Player
             end
         end 
 
+        if treasure.type == TreasureKind::BOTHHANDS
+            hands_treasures_visible = @visibleTreasures.select { |visible_treasure| 
+                visible_treasure.type == TreasureKind::ONEHAND
+            }
+
+            if not hands_treasures_visible.empty?
+                return false
+            end
+        end 
+
         similar_treasures_already_visible = @visibleTreasures.select { | visible_treasure |
             visible_treasure.type == treasure.type
         }
