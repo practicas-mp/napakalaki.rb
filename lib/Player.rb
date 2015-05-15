@@ -143,7 +143,7 @@ class Player
         levels = bc.getLevels()
         decrementLevels(levels)
 
-        bc.adjustToFitTreasureLists(@visibleTreasures, @hiddenTreasures)
+        bc = bc.adjustToFitTreasureLists(@visibleTreasures, @hiddenTreasures)
 
         setPendingBadConsequence(bc)
     end

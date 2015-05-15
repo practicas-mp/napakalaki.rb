@@ -65,12 +65,14 @@ class BadConsequence
 
   def adjustToFitTreasureLists(visibleTreasures, hiddenTreasures)
     if numberKind? # Comprobar si la BadConsequence es de quitar tesoros no especificos
-      @nVisibleTreasures = [ @nVisibleTreasures, visibleTreasures.length].min
-      @nHiddenTreasures = [ @nHiddenTreasures, hiddenTreasures.length].min
+      nVisibleTreasures = [ @nVisibleTreasures, visibleTreasures.length].min
+      nHiddenTreasures = [ @nHiddenTreasures, hiddenTreasures.length].min
+
+      return self.class.newNumberOfTreasures(@text, @levels, nVisibleTreasures, nHiddenTreasures)
     elsif specificKind?
       # Quedarse solo con los tesoros de los que pueda descartarse el jugador
       visibleTreasuresCopy = Array.new(visibleTreasures)
-      treasuresToKeepInBC = []
+      vTreasuresToKeepInBC = []
       for treasureKind in @specificVisibleTreasures
         treasureToRemove = nil
         for treasure in visibleTreasures
@@ -80,13 +82,13 @@ class BadConsequence
         end
         if treasureToRemove != nil
           visibleTreasuresCopy.delete(treasureToRemove)
-          treasuresToKeepInBC << treasureToRemove.type
+          vTreasuresToKeepInBC << treasureToRemove.type
         end
       end
-      @specificVisibleTreasures = treasuresToKeepInBC
+      
 
       hiddenTreasuresCopy = Array.new(hiddenTreasures)
-      treasuresToKeepInBC = []
+      hTreasuresToKeepInBC = []
       for treasureKind in @specificHiddenTreasures
         treasureToRemove = nil
         for treasure in hiddenTreasures
@@ -96,14 +98,11 @@ class BadConsequence
         end
         if treasureToRemove != nil
           hiddenTreasuresCopy.delete(treasureToRemove)  # There is just going to be one
-          treasuresToKeepInBC << treasureToRemove.type
+          hTreasuresToKeepInBC << treasureToRemove.type
         end
       end
-      @specificHiddenTreasures = treasuresToKeepInBC
-
-
-      puts @specificVisibleTreasures
-      puts @specificHiddenTreasures
+      
+      return self.class.newSpecificTreasures(@text, @levels, vTreasuresToKeepInBC, hTreasuresToKeepInBC)
     end
   end
 
