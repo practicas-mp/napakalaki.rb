@@ -1,17 +1,22 @@
 class Monster
-  def initialize(name, combat_level, prize, bad_consequence)
+  def initialize(name, combat_level, prize, bad_consequence, levelChangeAgainstCultistPlayer)
     @name = name
     @combatLevel = combat_level
     @badConsequence = bad_consequence
     @prize = prize
+    @levelChangeAgainstCultistPlayer = levelChangeAgainstCultistPlayer
   end
 
   def to_s
-    "#{@name} [lvl #{@combatLevel}]"
+    "#{@name} [lvl #{@combatLevel}]\n #{@badConsequence.text}"
   end
 
-  def just_level_loss
-    @badConsequence.just_level_loss
+  def getBasicValue
+    self.getLevel
+  end
+
+  def getSpecialValue
+    self.getLevel + @levelChangeAgainstCultistPlayer
   end
 
   def getLevel
@@ -24,7 +29,5 @@ class Monster
 
   def getPrize
     @prize
-  end
-
-  
+  end 
 end

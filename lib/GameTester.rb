@@ -49,6 +49,8 @@ class GameTester
               puts "\n\n Has perdido el combate, te toca cumplir el mal rollo"
             when Model::CombatResult::LOSEANDESCAPE then
               puts "\n\n Perdiste el combate pero has logrado escapar"
+            when Model::CombatResult::LOSEANDCONVERT then
+              puts "\n\n Perdiste el combate, pero te has convertido en sectario"
             when Model::CombatResult::LOSEANDDIE then
               puts "\n\n Perdiste el combate y ademas estas muerto"
            end #case

@@ -1,7 +1,7 @@
 require 'singleton'
-require_relative 'Player'
 require_relative 'CombatResult'
 require_relative 'CardDealer'
+require_relative 'Player'
 
 class Napakalaki
 
@@ -37,8 +37,15 @@ class Napakalaki
 
     def combat()
         combat_result = @currentPlayer.combat(@currentMonster)
-
         CardDealer.getInstance().giveMonsterBack(@currentMonster)
+
+        if combat_result == CombatResult::LOSEANDCONVERT
+            cultist = CardDealer.instance.nextCultist
+            new_player = CultistPlayer.new(@currentPlayer, cultist)
+            @players[@currentPlayerIndex] = new_player
+            @currentPlayer = new_player
+        end
+
         return combat_result
     end
 

@@ -16,6 +16,10 @@ class Player
         @hiddenTreasures = []
     end
 
+    def clone
+        return Marshal.load(Marshal.dump(self))
+    end
+
     def getName
         @name
     end
@@ -97,8 +101,8 @@ class Player
     end
 
     def combat(monster)
-        my_level = getCombatLevel()
-        monster_level = monster.getLevel()
+        my_level = self.getCombatLevel
+        monster_level = self.getOponentLevel(monster)
 
 
         if my_level > monster_level
@@ -121,9 +125,10 @@ class Player
                 if bad.kills()
                     die
                     result = CombatResult::LOSEANDDIE
+                elsif self.shouldConvert()
+                    result = CombatResult::LOSEANDCONVERT
                 else
                     applyBadConsequence(bad)
-                    puts bad
                     result = CombatResult::LOSE
                 end
 
@@ -299,10 +304,20 @@ class Player
     end
 
     def to_s
-        "#{@name}, nivel #{@level} "
+        "#{@name}, nivel #{@level}/#{self.getCombatLevel}"
     end
 
+    protected
+    def getOponentLevel(monster)
+        monster.getBasicValue
+    end
 
+    protected
+    def shouldConvert
+        Dice.instance.nextNumber == 6
+    end
 
+    attr_reader :level
+    protected :level
 end
 

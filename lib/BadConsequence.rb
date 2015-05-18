@@ -110,19 +110,18 @@ class BadConsequence
     @levels
   end
 
-  private
-
-  def numberKind?
-    @nVisibleTreasures != 0 || @nHiddenTreasures != 0
-  end
-
-  def specificKind?
-    !@specificVisibleTreasures.empty? || !@specificHiddenTreasures.empty?
-  end
-
-
   attr_reader :text, :levels, :nVisibleTreasures, :nHiddenTreasures,
               :specificVisibleTreasures, :specificHiddenTreasures, :death
 
   private_class_method :new
+
+  private
+  def numberKind?
+    @nVisibleTreasures != 0 || @nHiddenTreasures != 0
+  end
+
+  private
+  def specificKind?
+    !@specificVisibleTreasures.empty? || !@specificHiddenTreasures.empty?
+  end
 end
