@@ -199,6 +199,7 @@ class Player
         @visibleTreasures.delete(treasure)
         
         if @pendingBadConsequence != nil && @pendingBadConsequence.isEmpty == false
+            puts 'pending bc'
             @pendingBadConsequence.substractVisibleTreasure(treasure)
         end
 
@@ -260,8 +261,8 @@ class Player
     def validState()
         # No debería mostrarse aqui, pero no podemos modificar el front-end...
         puts @pendingBadConsequence if @pendingBadConsequence != nil && !@pendingBadConsequence.isEmpty
-        return @pendingBadConsequence == nil || 
-            @pendingBadConsequence.isEmpty && 
+        return (@pendingBadConsequence == nil || 
+            @pendingBadConsequence.isEmpty) && 
             @hiddenTreasures.length < 5
     end
 
