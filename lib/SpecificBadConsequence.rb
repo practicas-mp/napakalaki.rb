@@ -50,11 +50,12 @@ class SpecificBadConsequence < BadConsequence
     end
 
     def substractVisibleTreasure(treasure)
-        @specificVisibleTreasures.delete(@specificVisibleTreasures.find_index(treasure.type))
+        @specificVisibleTreasures.delete_at(@specificVisibleTreasures.find_index(treasure.type))
     end
 
-    def substractHiddenreasure(treasure)
-        @specificHiddenTreasures.delete(@specificHiddenTreasures.find_index(treasure.type))
+    def substractHiddenTreasure(treasure)
+        puts "#{@specificHiddenTreasures}"
+        @specificHiddenTreasures.delete_at(@specificHiddenTreasures.find_index(treasure.type))
     end
 
     def kills
