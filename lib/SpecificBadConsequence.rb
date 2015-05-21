@@ -2,8 +2,11 @@ require_relative 'BadConsequence'
 
 
 class SpecificBadConsequence < BadConsequence
-    def initialize(text, levels, visibleTreasures, hiddenTreasures)
-        super(text, levels, 0, 0, visibleTreasures, hiddenTreasures, false)
+    def initialize(text, levels, specific_visible_treasures, specific_hidden_treasures)
+        super(text)
+        @levels = levels    
+        @specificVisibleTreasures = specific_visible_treasures
+        @specificHiddenTreasures = specific_hidden_treasures
     end
 
     def to_s
@@ -52,6 +55,18 @@ class SpecificBadConsequence < BadConsequence
 
     def substractHiddenreasure(treasure)
         @specificHiddenTreasures.delete(@specificHiddenTreasures.find_index(treasure.type))
+    end
+
+    def kills
+        false
+    end
+
+    def isEmpty
+      @specificHiddenTreasures.empty? && @specificVisibleTreasures.empty?
+    end
+
+    def getLevels
+        @levels
     end
 
     public_class_method :new

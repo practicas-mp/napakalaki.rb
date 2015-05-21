@@ -125,7 +125,7 @@ class Player
                 if bad.kills()
                     die
                     result = CombatResult::LOSEANDDIE
-                elsif self.shouldConvert()
+                elsif self.shouldConvert
                     result = CombatResult::LOSEANDCONVERT
                 else
                     applyBadConsequence(bad)
@@ -199,7 +199,6 @@ class Player
         @visibleTreasures.delete(treasure)
         
         if @pendingBadConsequence != nil && @pendingBadConsequence.isEmpty == false
-            puts 'pending bc'
             @pendingBadConsequence.substractVisibleTreasure(treasure)
         end
 
