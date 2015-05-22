@@ -1,5 +1,7 @@
-# This class represents a Prize in the game
+require_relative 'Card'
+
 class Prize
+  include Card
   def initialize(treasures, levels)
     @treasures = treasures
     @levels = levels

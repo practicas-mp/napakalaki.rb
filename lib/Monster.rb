@@ -1,4 +1,8 @@
+require_relative 'Card'
+
 class Monster
+  include Card
+
   def initialize(name, combat_level, prize, bad_consequence, levelChangeAgainstCultistPlayer)
     @name = name
     @combatLevel = combat_level

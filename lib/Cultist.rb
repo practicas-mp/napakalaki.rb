@@ -1,6 +1,9 @@
 require_relative 'CultistPlayer'
+require_relative 'Card'
+
 
 class Cultist
+    include Card
     def initialize(name, gainedLevels)
         @name = name
         @gainedLevels = gainedLevels
